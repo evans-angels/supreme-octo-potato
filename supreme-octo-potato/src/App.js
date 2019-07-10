@@ -1,6 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import Input from './components/input';
+import ImageContainer from './components/imagesContainer';
+import Header from "./components/Header.js";
+import { calculateVariantCount, getAllVariations } from "./utils/helpers.js";
+// import logo from './logo.svg';
 import './App.css';
+import $ from 'jquery';
 
 class App extends Component {
   constructor(props) {
