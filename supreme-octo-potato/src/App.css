@@ -60,3 +60,370 @@
     transform: rotate(360deg);
   }
 }
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  font-size: 18px;
+  color: white;
+}
+
+.page_title {
+  text-align: left;
+  width: 80%;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 3%;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.inputContainer {
+  width: 80%;
+  border: 2px solid #f2f2f2;
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+  align-items: center;
+  
+  /* align-content: stretch; */
+}
+.image-source-container, .options-container, .input-type-container  {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+}
+/* .input-type-container {
+  display: flex;
+  flex-direction: column;
+} */
+
+.input-type-button-container, .options-button-container {
+  display: flex;
+}
+.input-type-button-container button, .options-container button {
+  width: 50%;
+}
+
+/* .leftContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid white;
+} */
+.rightContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid white;
+}
+
+.centerContainer {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid white;
+  font-size: 7px;
+}
+
+.centerContainer .theList li {
+  height: 14px;
+  line-height: 14px;
+      margin-bottom: 0px;
+}
+
+
+
+.rightContainer .controlContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rightContainer .theList li {
+  height: 14px;
+  line-height: 14px;
+      margin-bottom: 0px;
+}
+.csv-input {
+  margin-bottom: 10px;
+}
+
+.currentParamList {
+  width: 50%;
+  display: flex;
+  text-overflow: ellipsis;
+  flex-direction: column;
+}
+
+ul { margin: 0; padding: 0; }
+
+/* .geolocation {
+
+  height: 25px;
+  width: 60%;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 5px;
+  background-color: #f2f2f2;
+  border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+  border-top-color: rgb(216, 216, 216);
+  border-right-color: rgb(209, 209, 209);
+  border-bottom-color: rgb(186, 186, 186);
+  border-left-color: rgb(209, 209, 209);
+  border-style: solid;
+  border-width: 1px;
+  padding: 1px 7px 2px;
+  color: black;
+} */
+.cityList {
+ 
+  max-height: 200px;
+  overflow: scroll;
+  width: 60%;
+}
+.cityList li {
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+}
+.geolocation input {
+  width: 10px;
+  float: right;
+  position: relative;
+  top: 4px;
+}
+button.geolocation {
+  align-self: flex-end;
+}
+.react-csv-input {
+  float: right;
+  position: relative;
+  width: 100%;
+}
+
+
+.paramHeaderList {
+  flex-direction: row;
+}
+.csv {
+ 
+  line-height: 25px;
+
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 5px;
+  background-color: #f2f2f2;
+  border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+  border-top-color: rgb(216, 216, 216);
+  border-right-color: rgb(209, 209, 209);
+  border-bottom-color: rgb(186, 186, 186);
+  border-left-color: rgb(209, 209, 209);
+  border-style: solid;
+  border-width: 1px;
+  padding: 1px 7px 2px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.totalContentCount {
+  font-size: 32px;
+  color: magenta;
+}
+
+.csv .label {
+  padding: 2px;
+  text-align: center;
+  width: 100%;
+}
+.geolocation .label {
+  padding: 4px;
+}
+
+.ParamListMain,
+.ImageSourceMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+}
+
+
+form {
+  text-align: left;
+}
+.wrapper {
+  width: 100%;
+}
+input {
+  width: 90%;
+  margin-bottom: 20px;
+  margin-left: 5px;
+}
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 5px;
+  border: 2px solid #555;
+  position: relative;
+  top: 0px;
+}
+input[type="checkbox"]:checked {
+  background: #abd;
+}
+
+input[type="file"] {
+  -webkit-appearance: none;
+  /* width: 140px;
+  font-size: 24px; */
+  line-height: 11px;
+  background: white;
+  border-radius: 5px;
+  border: 2px solid #555;
+  position: relative;
+  /* margin-left: 11px; */
+}
+input[type="file"]:checked {
+  background: #abd;
+}
+
+button {
+  min-height: 35px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 5px;
+}
+
+button[disabled="true"] {
+  background-color: red;
+}
+
+ul {
+  list-style: none;
+}
+
+.queuedParamList {
+  padding: 0;
+  line-height: 26px;
+  width: 100%;
+  margin: 0 auto;
+}
+.queuedParamList li {
+  text-align: left;
+  max-height: 25px;
+}
+
+.queuedParamList li span {
+  color: #555555;
+  height: 20px;
+  line-height: 24px;
+  float: right;
+}
+
+span.tool.link {
+  float: left;
+  margin-right: 5px;
+  line-height: 25px;
+}
+
+span.tool.remove, span.tool.remove {
+  float: right;
+  margin-right: 5px;
+  line-height: 25px;
+}
+
+.queuedParamList li span.tool:hover {
+  color: red;
+}
+
+.theList li {
+  text-align: left;
+  height: 26px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  display:flex;
+}
+
+
+.label {
+  align-self: flex-start;
+  padding: 5px;
+}
+
+.thumbnailContainer {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageBorder {
+  border: 2px solid white;
+  border-radius: 5px;
+  /* height: 450px; */
+  width: 400px;
+  margin: 10px;
+}
+
+.imageInfo {
+  min-height: 50px;
+  color: white;
+  border-top: 2px solid white;
+  word-break: break-all;
+}
+
+.outputControl {
+  width: 100%;
+  display:flex;
+  justify-content: center;
+}
+img {
+  height: 400px;
+  width: 400px;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+
+.theList li span.urlParamName {
+  color: yellowgreen;
+}
+
+.theList li span.urlParamValue {
+  color: indianred;
+}
+
+span.urlParamName {
+  color: yellowgreen;
+}
+
+span.urlParamValue {
+  color: indianred;
+}
