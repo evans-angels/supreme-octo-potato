@@ -9,9 +9,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: null
+      images: null,
+      selectedImage: null
     };
     this.grabImages = this.grabImages.bind(this);
+    this.setSelectedImage = this.setSelectedImage.bind(this);
+  }
+
+  setSelectedImage(image) {
+    this.setState({ selectedImage: image });
   }
 
   grabImages(url) {
@@ -64,7 +70,7 @@ class App extends Component {
         </header>
         <div className="container">
           <Input grabImages={this.grabImages}></Input>
-          <ImageContainer images={this.state.images}/>
+          <ImageContainer setSelectedImage={this.setSelectedImage} images={this.state.images}/>
         </div>
       </div>
     );

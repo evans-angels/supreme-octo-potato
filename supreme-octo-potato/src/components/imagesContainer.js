@@ -4,11 +4,16 @@ import Block from './block';
 class ImageContainer extends Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
     this.state = { images: [] };
   }
 
   componentWillReceiveProps(props) {
     this.setState({images: props.images});
+  }
+
+  handleClick(image) {
+    this.props.setSelectedImage(image);
   }
 
   render() {
@@ -17,7 +22,7 @@ class ImageContainer extends Component {
     return (
       <div className="imageContainer">
         {images.map((src, i) =>
-          <Block key={i} imageSource={src}/>) }
+          <Block key={i} imageSource={src} handleClick={this.handleClick}/>) }
       </div>
     );
   }
