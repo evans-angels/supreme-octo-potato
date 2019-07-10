@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
-import Input from './components/input';
-import ImageContainer from './components/imagesContainer';
-// import logo from './logo.svg';
+import React from 'react';
+import logo from './logo.svg';
 import './App.css';
-import $ from 'jquery';
 
 class App extends Component {
   constructor(props) {
