@@ -319,67 +319,65 @@ class App extends Component {
     const renderParamPicker = !renderParamListAndControls && hasValidatedSourceURL;
     return (
       <div className="App">
-        <header className="App-header">
-          <Header count={count} tooManyVariants={tooManyVariants} />
-          <div className="container">
-            {!selectedImage ? (
-              <>
-                <Input grabImages={this.grabImages} />
-                <ImageContainer setSelectedImage={this.setSelectedImage} images={this.state.images} />
-              </>
-            ) : (
-              <ImageSource validatedSourceUrl={validatedSourceUrl} onInputSourceChange={this.handleInputSourceChange} />
-            )}
+        <Header count={count} tooManyVariants={tooManyVariants} />
+        <div className="container">
+          {!selectedImage ? (
+            <>
+              <Input grabImages={this.grabImages} />
+              <ImageContainer setSelectedImage={this.setSelectedImage} images={this.state.images} />
+            </>
+          ) : (
+            <ImageSource validatedSourceUrl={validatedSourceUrl} onInputSourceChange={this.handleInputSourceChange} />
+          )}
 
-            {renderParamPicker && (
-              <>
-                <QueuedParamList
-                  params={params}
-                  deleteParam={this.deleteParam}
-                  editParam={this.editParam}
-                  handleLocationParams={this.handleLocationParams}
-                  currentLocationParams={this.currentLocationParams}
-                />
-                <ParamPicker
-                  csvUploadedOrSkipped={csvUploadedOrSkipped}
-                  handleCSVUpload={this.handleCSVUpload}
-                  skipCsvUpload={this.skipCsvUpload}
-                />
-              </>
-            )}
-
-            {renderParamListAndControls && (
-              <>
-                <QueuedParamList params={params} deleteParam={this.deleteParam} editParam={this.editParam} />
-                <Geolocation handleLocationParams={this.handleLocationParams} currentLocationParams={this.currentLocationParams} />
-                <ParamInput
-                  addParam={this.addParam}
-                  inputElement={this.inputElement}
-                  handleInput={this.handleInput}
-                  currentParam={this.state.currentParam}
-                />
-              </>
-            )}
-            {renderOutputControls && (
-              <OutputControl
-                hasValidatedSourceURL={hasValidatedSourceURL}
-                tooManyVariants={tooManyVariants}
-                generatePDF={this.generatePDF}
-                viewInBroswer={this.viewInBroswer}
-                showUrls={this.showUrls}
+          {renderParamPicker && (
+            <>
+              <QueuedParamList
+                params={params}
+                deleteParam={this.deleteParam}
+                editParam={this.editParam}
+                handleLocationParams={this.handleLocationParams}
+                currentLocationParams={this.currentLocationParams}
               />
-            )}
-            <OutputContainer
-              validatedSourceUrl={validatedSourceUrl}
-              showPDF={this.state.actions.showPDF}
-              showInBrowser={this.state.actions.showInBrowser}
-              proxyUrls={this.state.proxyUrls}
-              fullQueryStrings={this.state.fullQueryStrings}
-              showUrls={this.state.actions.showUrls}
-              fullUrls={this.state.fullUrls}
+              <ParamPicker
+                csvUploadedOrSkipped={csvUploadedOrSkipped}
+                handleCSVUpload={this.handleCSVUpload}
+                skipCsvUpload={this.skipCsvUpload}
+              />
+            </>
+          )}
+
+          {renderParamListAndControls && (
+            <>
+              <QueuedParamList params={params} deleteParam={this.deleteParam} editParam={this.editParam} />
+              <Geolocation handleLocationParams={this.handleLocationParams} currentLocationParams={this.currentLocationParams} />
+              <ParamInput
+                addParam={this.addParam}
+                inputElement={this.inputElement}
+                handleInput={this.handleInput}
+                currentParam={this.state.currentParam}
+              />
+            </>
+          )}
+          {renderOutputControls && (
+            <OutputControl
+              hasValidatedSourceURL={hasValidatedSourceURL}
+              tooManyVariants={tooManyVariants}
+              generatePDF={this.generatePDF}
+              viewInBroswer={this.viewInBroswer}
+              showUrls={this.showUrls}
             />
-          </div>
-        </header>
+          )}
+          <OutputContainer
+            validatedSourceUrl={validatedSourceUrl}
+            showPDF={this.state.actions.showPDF}
+            showInBrowser={this.state.actions.showInBrowser}
+            proxyUrls={this.state.proxyUrls}
+            fullQueryStrings={this.state.fullQueryStrings}
+            showUrls={this.state.actions.showUrls}
+            fullUrls={this.state.fullUrls}
+          />
+        </div>
       </div>
     );
   }
