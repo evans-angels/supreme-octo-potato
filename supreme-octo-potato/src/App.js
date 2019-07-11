@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Input from "./components/input";
+import CD from "cropduster";
 import ImageContainer from "./components/imagesContainer";
 import Header from "./components/Header.js";
 import { calculateVariantCount, getAllVariations } from "./utils/helpers.js";
@@ -10,7 +11,7 @@ import ImageSource from "./components/ImageSource.js";
 import Geolocation from "./components/GeoLocation.js";
 import ParamPicker from "./components/ParamPicker.js";
 import ParamInput from "./components/ParamInput.js";
-import logo from './logo.svg';
+import logo from "./logo.svg";
 import "./App.css";
 import $ from "jquery";
 
@@ -30,24 +31,13 @@ class App extends Component {
       options: {
         hasGeolocation: false,
         hasParams: false,
-        usingProxies: false,
+        usingProxies: false
       },
       actions: {
         showInBrowser: false,
         showPDF: false,
         showUrls: false
       },
-      // params: {
-      //   currentParam: {
-      //     text: "",
-      //     key: ""
-      //   },
-      //   rawSingleParams: [],
-      //   geolocationParams: [],
-      //   fullQueryCombinations: [],
-      //   finalizedUrls: [],
-      // },
-
       activeParams: [],
       params: [],
       fullQueryStrings: [],
@@ -57,14 +47,14 @@ class App extends Component {
         text: "",
         key: ""
       },
-      currentLocationParams: [],
+      currentLocationParams: []
     };
     this.grabImages = this.grabImages.bind(this);
     this.setSelectedImage = this.setSelectedImage.bind(this);
   }
 
   setSelectedImage(image) {
-    this.setState({ selectedImage: image });
+    this.setState({ selectedImage: image, rulesToRun: {validatedSourceUrl: image.split('?')[0] }});
   }
 
   grabImages(url) {
@@ -72,12 +62,6 @@ class App extends Component {
       .then(res => res.text())
       .then(data => {
         try {
-          // data = data.replace(/<script src=/g, '<noscript class="mi-script-src" data-script-url=')
-          // .replace(/<script/g, '<noscript class="mi-script-inline"')
-          // .replace(/<\/script/g, "</noscript")
-          // .replace(/onload=/g, "data-onload=")
-          // .replace(/src=/g, "data-src=")
-          // .replace(/srcset=/g, "data-srcset=");
 
           const $doc = $(data);
           const imageTags = $doc.find("img");
@@ -152,12 +136,12 @@ class App extends Component {
   }
 
   getProxyUrls(fullUrls) {
-    //return fullUrls.map(async url => await CD.proxyUrl(url));
+    return fullUrls.map(async url => await CD.proxyUrl(url));
   }
 
   updateStateParams(params, editParam, geolocationParams) {
-    // console.log("STATE UPDATE");
-    // console.log(params);
+    console.log('update state params');
+    console.log(params)
     const currentParam = editParam.length ? editParam[0] : { text: "", key: "" };
     const fullQueryStrings = getAllVariations(params, geolocationParams);
     const fullUrls = fullQueryStrings.map(q => `${this.state.rulesToRun.validatedSourceUrl}${q}`);
@@ -166,8 +150,6 @@ class App extends Component {
       const promiseProxies = this.getProxyUrls(fullUrls);
 
       Promise.all(promiseProxies).then(proxyUrls => {
-        // console.log('inside the promise')
-        // console.log(params)
         this.setState({
           params: params,
           totalContentCount: calculateVariantCount(params),
@@ -194,8 +176,10 @@ class App extends Component {
   addParam = e => {
     e.preventDefault();
     const addParam = this.state.currentParam;
+    const currentParams = this.state.params;
+    const keys = currentParams.map(v => { return v.text.split('=')[0] });
     const geolocationParams = this.state.currentLocationParams;
-    if (addParam.text !== "") {
+    if (addParam.text !== "" && keys.indexOf(addParam.text.split('=')[0]) === -1) {
       const params = [...this.state.params, addParam];
       return this.updateStateParams(params, [], geolocationParams);
     }
@@ -243,8 +227,6 @@ class App extends Component {
     });
   };
 
-
-
   handleLocationParams = e => {
     // console.log("city selected");
     // console.log(e);
@@ -257,8 +239,18 @@ class App extends Component {
     const params = this.state.params || [];
     return this.updateStateParams(params, [], geolocationParams);
   };
+  initializeParams(value) {
+    const geolocationParams = this.state.currentLocationParams;
+    const currentParams = this.state.params;
+    const keys = currentParams.map(v => { return v.text });
+    if (value.text !== "" && keys.indexOf(value.text) === -1) {
+      const params = [...this.state.params, value];
+      return this.updateStateParams(params, [], geolocationParams);
+    }
+  }
 
   handleCSVUpload = data => {
+    console.log('handle csv upload')
     const mergeParamArray = data[0];
     const paramValues = data.slice(1, data.length);
 
@@ -292,7 +284,8 @@ class App extends Component {
       const geolocationParams = this.state.geolocationParams;
       const addParam = this.state.currentParam;
       const params = [...this.state.params, addParam];
-      // console.log(params);
+      console.log('params')
+      console.log(params);
       return this.updateStateParams(params, [], geolocationParams);
     });
 
@@ -311,8 +304,13 @@ class App extends Component {
   render() {
     const count = this.state.totalContentCount;
     const tooManyVariants = count > 100;
-    const selectedImage = this.state.selectedImage;
+    const selectedImage = this.state.selectedImage || '';
     const params = this.state.params;
+    const initialImageParams = selectedImage.split('?')[1] || '';
+    if (initialImageParams.length) {
+      const individualParams = initialImageParams.split('&');
+      individualParams.forEach(v => this.initializeParams({ text: v, key: Date.now() }));
+    }
     const {
       rulesToRun: { hasValidatedSourceURL, validatedSourceUrl, csvUploadedOrSkipped }
     } = this.state;
@@ -322,26 +320,26 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-        <Header count={count} tooManyVariants={tooManyVariants} />
-        <div className="container">
-          {!selectedImage ? (
-            <>
-              <Input grabImages={this.grabImages} />
-              <ImageContainer setSelectedImage={this.setSelectedImage} images={this.state.images} />
-            </>
-          ) : (
-            <ImageSource validatedSourceUrl={selectedImage} onInputSourceChange={this.handleInputSourceChange} />
-          )}
-
-{renderParamPicker && (
+          <Header count={count} tooManyVariants={tooManyVariants} />
+          <div className="container">
+            {!selectedImage ? (
               <>
-                <QueuedParamList 
-                  params={params} 
-                  deleteParam={this.deleteParam} 
-                  editParam={this.editParam} 
+                <Input grabImages={this.grabImages} />
+                <ImageContainer setSelectedImage={this.setSelectedImage} images={this.state.images} />
+              </>
+            ) : (
+              <ImageSource validatedSourceUrl={validatedSourceUrl} onInputSourceChange={this.handleInputSourceChange} />
+            )}
+
+            {renderParamPicker && (
+              <>
+                <QueuedParamList
+                  params={params}
+                  deleteParam={this.deleteParam}
+                  editParam={this.editParam}
                   handleLocationParams={this.handleLocationParams}
                   currentLocationParams={this.currentLocationParams}
-                  />
+                />
                 <ParamPicker
                   csvUploadedOrSkipped={csvUploadedOrSkipped}
                   handleCSVUpload={this.handleCSVUpload}
@@ -362,26 +360,26 @@ class App extends Component {
                 />
               </>
             )}
-          {renderOutputControls && (
-            <OutputControl
-              hasValidatedSourceURL={hasValidatedSourceURL}
-              tooManyVariants={tooManyVariants}
-              generatePDF={this.generatePDF}
-              viewInBroswer={this.viewInBroswer}
-              showUrls={this.showUrls}
+            {renderOutputControls && (
+              <OutputControl
+                hasValidatedSourceURL={hasValidatedSourceURL}
+                tooManyVariants={tooManyVariants}
+                generatePDF={this.generatePDF}
+                viewInBroswer={this.viewInBroswer}
+                showUrls={this.showUrls}
+              />
+            )}
+            <OutputContainer
+              validatedSourceUrl={validatedSourceUrl}
+              showPDF={this.state.actions.showPDF}
+              showInBrowser={this.state.actions.showInBrowser}
+              proxyUrls={this.state.proxyUrls}
+              fullQueryStrings={this.state.fullQueryStrings}
+              showUrls={this.state.actions.showUrls}
+              fullUrls={this.state.fullUrls}
             />
-          )}
-          <OutputContainer
-            validatedSourceUrl={validatedSourceUrl}
-            showPDF={this.state.actions.showPDF}
-            showInBrowser={this.state.actions.showInBrowser}
-            proxyUrls={this.state.proxyUrls}
-            fullQueryStrings={this.state.fullQueryStrings}
-            showUrls={this.state.actions.showUrls}
-            fullUrls={this.state.fullUrls}
-          />
-        </div>
-          </header>
+          </div>
+        </header>
       </div>
     );
   }
