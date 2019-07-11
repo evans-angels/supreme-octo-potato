@@ -15,6 +15,7 @@ import "./App.css";
 import $ from "jquery";
 
 class App extends Component {
+  inputElement = React.createRef();
   constructor(props) {
     super(props);
     this.state = {
@@ -326,7 +327,7 @@ class App extends Component {
           {!selectedImage ? (
             <>
               <Input grabImages={this.grabImages} />
-              <ImageContainer setSelectedImage={this.setSelectedImage} images={this.state.images} />)
+              <ImageContainer setSelectedImage={this.setSelectedImage} images={this.state.images} />
             </>
           ) : (
             <ImageSource validatedSourceUrl={selectedImage} onInputSourceChange={this.handleInputSourceChange} />
