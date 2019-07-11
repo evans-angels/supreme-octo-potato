@@ -27,6 +27,9 @@
 .container {
   padding: 10px;
   width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 #link {
   width: 50%;
@@ -102,7 +105,7 @@
   flex-wrap: wrap;
   /* flex-direction: column; */
   align-items: center;
-  
+
   /* align-content: stretch; */
 }
 .image-source-container, .options-container, .input-type-container  {
@@ -196,7 +199,7 @@ ul { margin: 0; padding: 0; }
   color: black;
 } */
 .cityList {
- 
+
   max-height: 200px;
   overflow: scroll;
   width: 60%;
@@ -226,7 +229,7 @@ button.geolocation {
   flex-direction: row;
 }
 .csv {
- 
+
   line-height: 25px;
 
   border-radius: 4px;
@@ -273,6 +276,14 @@ button.geolocation {
 
 form {
   text-align: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.addParam {
+  white-space: nowrap;
 }
 .wrapper {
   width: 100%;
