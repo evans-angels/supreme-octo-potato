@@ -5,7 +5,7 @@ export default function ImageSource({ validatedSourceUrl, onInputSourceChange })
 
   return (
     <div className="image-source-container">
-      <div className="label">Image Source</div>
+      <div className="label">Add Image Source</div>
       <form>
         <input defaultValue={validatedSourceUrl} onBlur={onInputSourceChange} placeholder="Image Source Url" />
       </form>

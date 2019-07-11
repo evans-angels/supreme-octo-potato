@@ -42,7 +42,7 @@ class Input extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{'width': '100%'}}>
         <input id="link" placeholder="Insert VOL here" onChange={this.handleChange}></input>
         <br/>
         <button id="search" onClick={this.handleClick}>Search page for MI Images</button>
