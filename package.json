@@ -6,7 +6,7 @@
     "@react-pdf/renderer": "^1.0.0-alpha.23",
     "cropduster": "^6.0.1",
     "react-csv-reader": "^1.1.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
